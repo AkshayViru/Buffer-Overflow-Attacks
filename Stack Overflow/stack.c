@@ -3,7 +3,7 @@
 #include <string.h>
 
 int bof(char *str){
-    char buffer[12];
+    char buffer[64];
 
     strcpy(buffer, str);
 
@@ -11,13 +11,13 @@ int bof(char *str){
 }
 
 int main(int argc, char **argv){
-    char str[517];
-    FILE* badfile;
 
-    badfile = open("badfile", "r");
+    char str[517];
+    FILE* badfile = fopen("badfile_1.txt", "r");
+
     fread(str, sizeof(char), 517, badfile);
     bof(str);
 
     printf("Returned Properly");
-    return 1;
+    return 1; 
 }
