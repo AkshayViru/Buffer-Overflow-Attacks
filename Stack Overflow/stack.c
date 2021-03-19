@@ -3,24 +3,23 @@
 #include <string.h>
 
 int bof(char *str){
-    char buffer[64];
 
-    strcpy(buffer, str);
+	char buffer[24];
 
-    return 1;
+	strcpy(buffer, str);
+	return 1;
 }
 
 int main(int argc, char **argv){
 
-    char str[517];
-    FILE* badfile = fopen("badfile_1.txt", "r");
+	char str[517];
+	FILE *badfile;
 
-    int cnt = fread(&str, sizeof(char), 517, badfile);
-    fclose(badfile);
-    // null termination
-    str[cnt] = 0;
-    bof(str);
+	badfile = fopen("badfile", "r");
+	fread(str, sizeof(char), 517, badfile);
+	bof(str);
 
-    printf("Returned Properly");
-    return 1; 
+	printf("Returned Properly\n");
+	return 1;
 }
+
