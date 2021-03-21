@@ -10,11 +10,16 @@ int bof(char *str){
 }
 
 int main(int argc, char **argv){
-
+	
+	if(argc != 2){
+		printf("Provide badfile name as argument\n");
+		exit(0);
+	}	
+	
 	char str[517];
 	FILE *badfile;
 
-	badfile = fopen("badfile_1", "r");
+	badfile = fopen(argv[1], "r");
 	fread(str, sizeof(char), 517, badfile);
 	bof(str);
 
