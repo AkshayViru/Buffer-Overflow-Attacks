@@ -1,0 +1,4 @@
+https://python-chess.readthedocs.io/en/latest/
+http://www.enpassant.dk/chess/palview/manual/pgn.htm
+http://cfajohnson.com/chess/SAN/
+Bufferoverflow.pdf explains process as well.
