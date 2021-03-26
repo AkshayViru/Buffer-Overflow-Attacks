@@ -18,7 +18,7 @@ int main(int argc, char **argv){
 	
 	char str[517];
 	FILE *badfile;
-
+	
 	badfile = fopen(argv[1], "r");
 	fread(str, sizeof(char), 517, badfile);
 	bof(str);
