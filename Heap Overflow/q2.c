@@ -27,5 +27,5 @@ int main(int argc, char **argv)
 	free(b);
 	free(a);
 
-	printf("You failed?\n");
+	printf("You failed\n");
 }
