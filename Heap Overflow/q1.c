@@ -31,7 +31,7 @@ int main(int argc, char **argv)
   f = malloc(sizeof(struct fp));
   f->fp = Failed;    
 
-  printf("data is at %p, fp is at %p\n", d, f);
+  //printf("data is at %p, fp is at %p\n", d, f);
 
   strcpy(d->name, argv[1]);  
   
